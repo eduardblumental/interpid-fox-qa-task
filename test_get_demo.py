@@ -3,17 +3,17 @@ from playwright.sync_api import Page, expect
 
 import data
 
+from pages import HomePage, RequestDemoPage
 
-@pytest.fixture(scope="function", autouse=True)
-def setup(page: Page):
-    page.goto("https://www.intrepidfox.tech/")
-    page.locator('[data-testid="linkElement"]').nth(0).click()
-    page.locator('[placeholder="Name"]').fill(test_data.name)
-    page.locator('[placeholder="Email"]').fill(test_data.email)
-    page.locator('[placeholder="Message"]').fill(test_data.msg)
-    page.locator('[data-hook="icon-wrapper"]').click()
-    page.locator('[data-hook="submit-button"]').click()
-    page.locator('[data-testid="title"]')
+
+@pytest.fixture
+def home_page(page: Page):
+    return HomePage(page)
+
+
+@pytest.fixture(autouse=True)
+def setup(home_page):
+    home_page.open()
 
 
 def test_main_navigation(page: Page):
