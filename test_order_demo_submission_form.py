@@ -1,4 +1,4 @@
-import pytest, time
+import pytest
 from playwright.sync_api import Page, expect
 
 import data
